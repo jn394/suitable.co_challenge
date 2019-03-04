@@ -9,10 +9,12 @@ $(document).ready(function () {
     //     });
 
     $("#simiBTN").on("click", function () {
-        console.log("I just been clicked");
         event.preventDefault();
 
         console.log($('#teammate1').val());
+        console.log($('#teammate2').val());
+
+        $("#similarity").empty();
 
         $.ajax({
             method: "GET",
@@ -20,6 +22,7 @@ $(document).ready(function () {
         })
             .then(function (data) {
                 console.log(data);
+                $("#similarity").append(data.sim);
             });
 
     });

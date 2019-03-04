@@ -137,49 +137,107 @@ app.get("/similarities/:id/:id2", function (req, res) {
         }
     ])
         .exec().then(function (data) {
+
             person1 = data[0].Likes_Dislikes;
-            person1 = data[0].Likes_Dislikes;
+            person2 = data[1].Likes_Dislikes;
 
             let person1Likes = [];
-            let person1Disikes = [];
+            let person1DisLikes = [];
 
             let person2Likes = [];
-            let person2Disikes = [];
+            let person2DisLikes = [];
 
             person1.map(restaurants => {
-                if(restaurants.rating === 'LIKE'){
+                if (restaurants.rating === 'LIKE') {
                     person1Likes.push(restaurants);
                 }
-                else{
-                    person1Disikes.push(restaurants)
+                else {
+                    person1DisLikes.push(restaurants)
                 }
             });
 
             person2.map(restaurants => {
-                if(restaurants.rating === 'LIKE'){
+                if (restaurants.rating === 'LIKE') {
                     person2Likes.push(restaurants);
                 }
-                else{
-                    person2Disikes.push(restaurants)
+                else {
+                    person2DisLikes.push(restaurants)
                 }
             });
 
-            res.send(person1Likes);
+            let p1L_N_p2L = intersection(person1Likes, person2Likes);
+            let p1D_N_p2D = intersection(person1DisLikes, person2DisLikes);
+            let p1L_N_p2D = intersection(person1Likes, person2DisLikes);
+            let p1D_N_p2L = intersection(person1DisLikes, person2Likes);
+            let p1_U_p2 = union(person1, person2);
+
+            let sim = similarity(p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2);
+
+            res.send({ sim });
 
         }).catch(function (err) {
             console.log(err)
         })
 });
 
+// Intersetion Function
+intersection = (array1, array2) => {
+    let newArray = [];
+    for (i = 0; i < array1.length; i++) {
+        for (j = 0; j < array2.length; j++) {
+            if (array1[i].restaurantId === array2[j].restaurantId) {
+                newArray.push(array1[i].restaurantId);
+            }
+        }
+    }
+    return newArray.length;
+};
+
+// Union Function
+union = (array1, array2) => {
+    let newArray = [];
+
+    for (i = 0; i < array1.length; i++) {
+        var match = false;
+        for (j = 0; j < array2.length; j++) {
+            if (array1[i].restaurantId === array2[j].restaurantId) {
+                match = true;
+                break;
+            }
+        }
+        if (!match) {
+            newArray.push(array1[i].restaurantId)
+        }
+    }
+    return newArray.length;
+};
 
 
-// Intersetion Functions
-intersectionSame = () => {
+// Similarity Function
+// similarity = (p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2) => {
+//     let num = Math.sign((p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L)*(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L));
+//     return ((num) / p1_U_p2).toFixed(2);
+// }
 
-}
+similarity = (p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2) => {
+    let topNum = Math.abs(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L) * Math.sign(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L);
+    let botNum = p1_U_p2;
 
-intersectionDifferent = () => {
-
+    if ((topNum === 0) && (botNum === 0)) {
+        return 1;
+    }
+    else if ((topNum / botNum) === 0) {
+        return (topNum / botNum);
+    }
+    else if ((topNum / botNum) > 1){
+        return 1;
+    }
+    else if ((topNum / botNum) < -1){
+        return -1;
+    }
+    else {
+        return (topNum / botNum).toFixed(2);
+    }
 }
 
 
