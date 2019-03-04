@@ -13,60 +13,69 @@
 
 <body>
     <div class="container">
-        <h2>Similarities</h2>
-        <p>Pick 2 teammates and see what they would like!</p>
-        <form action="/submit" method="post">
-        <select id='teammate1' class="form-control">
-            <option>Brian Kuphal</option>
-            <option>Consuelo Lemke</option>
-            <option>Julianne Bogan</option>
-            <option>Sadye Larson</option>
-            <option>Adan Johnson</option>
-            <option>Cara Effertz</option>
-            <option>Alfonzo Durgan</option>
-            <option>Buddy DuBuque</option>
-            <option>Mikayla O'Conner</option>
-            <option>Danny Schimmel</option>
-            <option>Bryana Lueilwitz</option>
-            <option>Boris Bogisich</option>
-            <option>Roel Hahn</option>
-            <option>Junior O'Hara</option>
-            <option>Davonte Ratke</option>
-            <option>Linwood Reinger</option>
-            <option>Macy Pacocha</option>
-            <option>Austin Witting</option>
-            <option>Miracle Williamson</option>
-            <option>Ottis Hickle</option>
-        </select>
-        <select id='teammate2' class="form-control">
-            <option>Brian Kuphal</option>
-            <option>Consuelo Lemke</option>
-            <option>Julianne Bogan</option>
-            <option>Sadye Larson</option>
-            <option>Adan Johnson</option>
-            <option>Cara Effertz</option>
-            <option>Alfonzo Durgan</option>
-            <option>Buddy DuBuque</option>
-            <option>Mikayla O'Conner</option>
-            <option>Danny Schimmel</option>
-            <option>Bryana Lueilwitz</option>
-            <option>Boris Bogisich</option>
-            <option>Roel Hahn</option>
-            <option>Junior O'Hara</option>
-            <option>Davonte Ratke</option>
-            <option>Linwood Reinger</option>
-            <option>Macy Pacocha</option>
-            <option>Austin Witting</option>
-            <option>Miracle Williamson</option>
-            <option>Ottis Hickle</option>
-        </select>
-        <button id='simiBTN' class="button">Submit</button>
-        </form>     
-        
-        <div><strong>Similarity: </strong><strong id="similarity"></strong></div>
+        <div class="row">
+            <div class="col">
+                <h2>Similarities</h2>
+                <p>Pick 2 teammates and see what they would like!</p>
+                <form action="/submit" method="post">
+                    <select id='teammate1' class="form-control">
+                        <option>Brian Kuphal</option>
+                        <option>Consuelo Lemke</option>
+                        <option>Julianne Bogan</option>
+                        <option>Sadye Larson</option>
+                        <option>Adan Johnson</option>
+                        <option>Cara Effertz</option>
+                        <option>Alfonzo Durgan</option>
+                        <option>Buddy DuBuque</option>
+                        <option>Mikayla O'Conner</option>
+                        <option>Danny Schimmel</option>
+                        <option>Bryana Lueilwitz</option>
+                        <option>Boris Bogisich</option>
+                        <option>Roel Hahn</option>
+                        <option>Junior O'Hara</option>
+                        <option>Davonte Ratke</option>
+                        <option>Linwood Reinger</option>
+                        <option>Macy Pacocha</option>
+                        <option>Austin Witting</option>
+                        <option>Miracle Williamson</option>
+                        <option>Ottis Hickle</option>
+                    </select>
+                    <select id='teammate2' class="form-control">
+                        <option>Brian Kuphal</option>
+                        <option>Consuelo Lemke</option>
+                        <option>Julianne Bogan</option>
+                        <option>Sadye Larson</option>
+                        <option>Adan Johnson</option>
+                        <option>Cara Effertz</option>
+                        <option>Alfonzo Durgan</option>
+                        <option>Buddy DuBuque</option>
+                        <option>Mikayla O'Conner</option>
+                        <option>Danny Schimmel</option>
+                        <option>Bryana Lueilwitz</option>
+                        <option>Boris Bogisich</option>
+                        <option>Roel Hahn</option>
+                        <option>Junior O'Hara</option>
+                        <option>Davonte Ratke</option>
+                        <option>Linwood Reinger</option>
+                        <option>Macy Pacocha</option>
+                        <option>Austin Witting</option>
+                        <option>Miracle Williamson</option>
+                        <option>Ottis Hickle</option>
+                    </select>
+                    <button id='simiBTN' class="button">Submit</button>
+                </form>
 
+                <div><strong>Similarity: </strong><strong id="similarity"></strong></div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col">
+                <h2>Prediction</h2>
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="app.js"></script>
+
 </html>
