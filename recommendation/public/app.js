@@ -1,12 +1,32 @@
 $(document).ready(function () {
 
-    // $.ajax({
-    //     method: "GET",
-    //     url: "/similarities"
-    // })
-    //     .then(function () {
-    //         console.log('Similarities have been calulated!');
-    //     });
+    $.ajax({
+        method: "GET",
+        url: "/teammates"
+    })
+        .then(function (data) {
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+                $('.teammate').append(`<option> ${data[i].name} </option>`);
+            }
+
+        });
+
+    $.ajax({
+        method: "GET",
+        url: "/restaurants"
+    })
+        .then(function (data) {
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+                $('#restaurants').append(`<option> ${data[i].name} </option>`);
+            }
+
+        });
+
+
 
     $("#simiBTN").on("click", function () {
         event.preventDefault();
@@ -26,5 +46,22 @@ $(document).ready(function () {
             });
 
     });
+
+    $('#predictBTN').on("click", function () {
+        event.preventDefault();
+
+        console.log($('#teammate3').val());
+        console.log($('#restaurants').val());
+
+        $.ajax({
+            method: "GET",
+            url: "/prediction/" + $('#teammate3').val() + "/" + $('#restaurants').val()
+        })
+            .then(function (data) {
+                console.log(data);
+                $("#prediction").append(data.predict);
+            });
+
+    })
 
 });

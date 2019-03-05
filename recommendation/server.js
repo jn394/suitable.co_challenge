@@ -24,96 +24,48 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/recommendDB", { useNewUrlParser: true });
 
-// // Save a new Example using the data object
+// // Creating collections and import the JSON file
 // Teammates.create(teammates)
 //     .then(function () {
-//         // If saved successfully, print the new Example document to the console
 //         console.log("Teammates have been imported!!");
 //     })
 //     .catch(function (err) {
-//         // If an error occurs, log the error message
 //         console.log(err.message);
 //     });
 
 // Restaurants.create(restaurants)
 //     .then(function () {
-//         // If saved successfully, print the new Example document to the console
 //         console.log("Restaurants have been imported!!");
 //     })
 //     .catch(function (err) {
-//         // If an error occurs, log the error message
 //         console.log(err.message);
 //     });
 
 // Ratings.create(ratings)
 //     .then(function () {
-//         // If saved successfully, print the new Example document to the console
 //         console.log("Ratings have been imported!!");
 //     })
 //     .catch(function (err) {
-//         // If an error occurs, log the error message
 //         console.log(err.message);
 //     });
 
+// Initial Request to get the teammates
+app.get('/teammates', function (req, res) {
+    Teammates.find({})
+        .then(function (data) {
+            res.send(data);
+        })
+})
 
-// app.get("/similarities/:id/:id2", function (req, res) {
-//     Teammates.find({})
-//         .then(function (data) {
-//             console.log(req.params.id);
-//             console.log(req.params.id2);
-//             res.send(data);
-//         })
-//         .catch(function (err) {
-//             // If an error occurs, send it back to the client
-//             res.send(err);
-//         });
-// });
+// Initial Request to get the restaurants
+app.get('/restaurants', function (req, res) {
+    Restaurants.find({})
+        .then(function (data) {
+            res.send(data);
+        })
+})
 
-
-// app.get("/similarities/:id/:id2", function (req, res) {
-//     Teammates.aggregate([
-//         {
-//             $lookup: {
-//                 from: "ratings",
-//                 localField: "id",
-//                 foreignField: "teammateId",
-//                 as: "Likes/Dislikes"
-//             }
-//         }
-//     ])
-//         .exec().then(function (data) {
-//             res.send(data)
-//         }).catch(function (err) {
-//             console.log(err)
-//         })
-// });
-
-// app.get("/similarities/:id/:id2", function (req, res) {
-
-//     let teammate1 = {};
-//     let teammate2 = {};
-
-//     Teammates.find({
-//         $or: [
-//             { 'name': req.params.id },
-//             { 'name': req.params.id2 }
-//         ]
-//     })
-//         .then(function (data) {
-//             teammate1 = data[0];
-//             teammate2 = data[1];
-//             console.log(teammate1);
-//             console.log('------------------------');
-//             console.log(teammate2);
-
-//         })
-//         .catch(function (err) {
-//             // If an error occurs, send it back to the client
-//             res.send(err);
-//         });
-
-// });
-
+// GET request for Similarities
 app.get("/similarities/:id/:id2", function (req, res) {
     let person1 = [];
     let person2 = [];
@@ -178,6 +130,7 @@ app.get("/similarities/:id/:id2", function (req, res) {
         }).catch(function (err) {
             console.log(err)
         })
+
 });
 
 // Intersetion Function
@@ -198,7 +151,7 @@ union = (array1, array2) => {
     let newArray = [];
 
     for (i = 0; i < array1.length; i++) {
-        var match = false;
+        let match = false;
         for (j = 0; j < array2.length; j++) {
             if (array1[i].restaurantId === array2[j].restaurantId) {
                 match = true;
@@ -212,13 +165,6 @@ union = (array1, array2) => {
     return newArray.length;
 };
 
-
-// Similarity Function
-// similarity = (p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2) => {
-//     let num = Math.sign((p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L)*(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L));
-//     return ((num) / p1_U_p2).toFixed(2);
-// }
-
 similarity = (p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2) => {
     let topNum = Math.abs(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L) * Math.sign(p1L_N_p2L + p1D_N_p2D - p1L_N_p2D - p1D_N_p2L);
     let botNum = p1_U_p2;
@@ -229,17 +175,16 @@ similarity = (p1L_N_p2L, p1D_N_p2D, p1L_N_p2D, p1D_N_p2L, p1_U_p2) => {
     else if ((topNum / botNum) === 0) {
         return (topNum / botNum);
     }
-    else if ((topNum / botNum) > 1){
+    else if ((topNum / botNum) > 1) {
         return 1;
     }
-    else if ((topNum / botNum) < -1){
+    else if ((topNum / botNum) < -1) {
         return -1;
     }
     else {
         return (topNum / botNum).toFixed(2);
     }
 }
-
 
 // Start the API server
 app.listen(PORT, function () {

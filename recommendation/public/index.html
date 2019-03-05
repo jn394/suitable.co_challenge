@@ -17,50 +17,12 @@
             <div class="col">
                 <h2>Similarities</h2>
                 <p>Pick 2 teammates and see what they would like!</p>
-                <form action="/submit" method="post">
-                    <select id='teammate1' class="form-control">
-                        <option>Brian Kuphal</option>
-                        <option>Consuelo Lemke</option>
-                        <option>Julianne Bogan</option>
-                        <option>Sadye Larson</option>
-                        <option>Adan Johnson</option>
-                        <option>Cara Effertz</option>
-                        <option>Alfonzo Durgan</option>
-                        <option>Buddy DuBuque</option>
-                        <option>Mikayla O'Conner</option>
-                        <option>Danny Schimmel</option>
-                        <option>Bryana Lueilwitz</option>
-                        <option>Boris Bogisich</option>
-                        <option>Roel Hahn</option>
-                        <option>Junior O'Hara</option>
-                        <option>Davonte Ratke</option>
-                        <option>Linwood Reinger</option>
-                        <option>Macy Pacocha</option>
-                        <option>Austin Witting</option>
-                        <option>Miracle Williamson</option>
-                        <option>Ottis Hickle</option>
+                <form>
+                    <h3>Teammate 1</h3>
+                    <select id='teammate1' class="form-control teammate">
                     </select>
-                    <select id='teammate2' class="form-control">
-                        <option>Brian Kuphal</option>
-                        <option>Consuelo Lemke</option>
-                        <option>Julianne Bogan</option>
-                        <option>Sadye Larson</option>
-                        <option>Adan Johnson</option>
-                        <option>Cara Effertz</option>
-                        <option>Alfonzo Durgan</option>
-                        <option>Buddy DuBuque</option>
-                        <option>Mikayla O'Conner</option>
-                        <option>Danny Schimmel</option>
-                        <option>Bryana Lueilwitz</option>
-                        <option>Boris Bogisich</option>
-                        <option>Roel Hahn</option>
-                        <option>Junior O'Hara</option>
-                        <option>Davonte Ratke</option>
-                        <option>Linwood Reinger</option>
-                        <option>Macy Pacocha</option>
-                        <option>Austin Witting</option>
-                        <option>Miracle Williamson</option>
-                        <option>Ottis Hickle</option>
+                    <h3>Teammate 2</h3>
+                    <select id='teammate2' class="form-control teammate">
                     </select>
                     <button id='simiBTN' class="button">Submit</button>
                 </form>
@@ -71,6 +33,17 @@
         <div class='row'>
             <div class="col">
                 <h2>Prediction</h2>
+                <p>Pick 1 teammate and 1 restaurant and see restaurant recommendations!</p>
+                <form>
+                    <h3>Teammate</h3>
+                    <select id='teammate3' class="form-control teammate">
+                    </select>
+                    <h3>Restaurant</h3>
+                    <select id='restaurants' class="form-control">
+                    </select>
+                    <button id='predictBTN' class="button">Submit</button>
+                </form>
+                <div><strong>Prediction: </strong><strong id="prediction"></strong></div>
             </div>
         </div>
     </div>
